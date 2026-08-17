@@ -1,0 +1,598 @@
+PROJECT X-360 — EMULATOR MAP
+Updated: August 16, 2026
+System: Aurora
+
+============================================================
+PURPOSE
+============================================================
+Quick-reference guide for the Project X-360 Xenia environment.
+
+Use this file to quickly understand:
+- Which emulator build is the primary baseline
+- Which games are confirmed working
+- Which settings are required
+- Which games have special launch requirements
+- Where files, tools, backups, and documentation are stored
+
+For detailed testing history and per-game configuration notes, see:
+Project_X360_Xenia_Baseline_Configurations_Phase6_Updated_2026-08-16.xlsx
+
+
+============================================================
+PRIMARY XENIA EMULATOR
+============================================================
+Emulator:
+Xenia Canary
+
+Location:
+D:\Xenia\Xbox_360_Emulator\xenia_canary.exe
+
+Status:
+KNOWN-GOOD PRIMARY BASELINE
+
+Alternate Xenia Builds Required:
+NONE CURRENTLY
+
+Important:
+Do not replace or heavily modify the primary emulator without first
+preserving a known-good backup.
+
+
+============================================================
+CURRENT UNIVERSAL BASELINE SETTINGS
+============================================================
+hid = "any"
+
+storage_selection_dialog = true
+
+protect_zero = false
+
+use_dedicated_xma_thread = true
+
+xma_decoder = "old"
+
+readback_resolve = "full"
+
+
+IMPORTANT BASELINE HISTORY
+------------------------------------------------------------
+readback_resolve = "none"
+- Worked correctly with:
+  * Marvel Ultimate Alliance Gold
+  * Marvel Ultimate Alliance 2
+  * Need for Speed: ProStreet
+- Did NOT render Madden NFL 25 field textures correctly.
+
+readback_resolve = "full"
+- FIXED Madden NFL 25 field/grass rendering.
+- Regression tested successfully with:
+  * Marvel Ultimate Alliance Gold
+  * Marvel Ultimate Alliance 2
+  * Need for Speed: ProStreet
+- Also validated with:
+  * NBA 2K12
+  * MLB 2K12
+- This is now the CURRENT UNIVERSAL BASELINE.
+
+
+============================================================
+VERIFIED GAME LIBRARY
+============================================================
+
+1. MARVEL ULTIMATE ALLIANCE — GOLD EDITION
+------------------------------------------------------------
+Phase:
+1
+
+Status:
+PASS / KNOWN GOOD
+
+Important Settings:
+storage_selection_dialog = true
+protect_zero = false
+use_dedicated_xma_thread = true
+xma_decoder = "old"
+readback_resolve = "full"
+
+Storage:
+Dummy HDD
+
+Known Fixes:
+- Dummy HDD resolved "No storage device selected."
+- protect_zero = false resolved the post-intro loading freeze.
+- xma_decoder = "old" fixed choppy/static audio.
+- use_dedicated_xma_thread = false was REJECTED because audio disappeared
+  and the game crashed.
+
+Validated:
+Boot ............. PASS
+Gameplay ......... PASS
+Cutscenes ........ PASS
+Audio ............ PASS
+Controller ....... PASS
+Save ............. PASS
+Exit / Relaunch .. PASS
+Load Save ........ PASS
+
+
+2. MARVEL ULTIMATE ALLIANCE 2
+------------------------------------------------------------
+Phase:
+1
+
+Status:
+PASS / KNOWN GOOD
+
+Special Configuration:
+None currently required beyond the universal baseline.
+
+Validated:
+Boot ............. PASS
+Gameplay ......... PASS
+Cutscenes ........ PASS
+Audio ............ PASS
+Controller ....... PASS
+Save ............. PASS
+Exit / Relaunch .. PASS
+Load Save ........ PASS
+
+
+3. NEED FOR SPEED: PROSTREET
+------------------------------------------------------------
+Phase:
+2
+
+Title ID:
+45410822
+
+Status:
+PASS / KNOWN GOOD
+
+Game Location:
+D:\Xenia\Xbox_360_Games\Need_for_Speed_ProStreet\45410822
+
+Special Configuration:
+None currently required beyond the universal baseline.
+
+Controller Note:
+Initial Start-button problem was NOT caused by Xenia.
+Windows had failed to detect the Xbox controller correctly.
+Once Windows detected:
+Controller (Xbox One For Windows)
+the game worked normally.
+
+Validated:
+Boot ............. PASS
+Opening Cutscene . PASS
+Graphics ......... PASS
+Audio ............ PASS
+Controller ....... PASS
+Gameplay ......... PASS
+Save ............. PASS
+Exit / Relaunch .. PASS
+Load Save ........ PASS
+
+
+4. MADDEN NFL 25
+------------------------------------------------------------
+Phase:
+2
+
+Title ID:
+454109C1
+
+Status:
+PASS / KNOWN GOOD
+
+Game Location:
+D:\Xenia\Xbox_360_Games\Madden_NFL_25\454109C1
+
+REQUIRED GRAPHICS SETTING:
+readback_resolve = "full"
+
+Important:
+readback_resolve = "none" allowed the game to run, but the football
+field/grass textures rendered incorrectly with corrupted colors.
+
+Changing:
+readback_resolve = "none"
+
+To:
+readback_resolve = "full"
+
+FIXED the field rendering.
+
+Validated:
+Boot ............. PASS
+Cutscenes ........ PASS
+Field Graphics ... PASS
+Audio ............ PASS
+Controller ....... PASS
+Gameplay ......... PASS
+Save ............. PASS
+Load Save ........ PASS
+
+
+5. NBA 2K12
+------------------------------------------------------------
+Phase:
+2
+
+Title ID:
+54540894
+
+Status:
+PASS / KNOWN GOOD
+
+Game Location:
+D:\Xenia\Xbox_360_Games\NBA_2K_12\54540894
+
+Special Configuration:
+None currently required beyond the universal baseline.
+
+Validated:
+Boot ............. PASS
+Graphics ......... PASS
+Audio ............ PASS
+Controller ....... PASS
+Gameplay ......... PASS
+Save / Load ...... PASS
+
+
+6. MAJOR LEAGUE BASEBALL 2K12
+------------------------------------------------------------
+Phase:
+2
+
+Title ID:
+5454089E
+
+Status:
+PASS / KNOWN GOOD — SPECIAL LAUNCH REQUIREMENT
+
+Game Location:
+D:\Xenia\Xbox_360_Games\MLB_2K_12\5454089E
+
+Game Package:
+D:\Xenia\Xbox_360_Games\MLB_2K_12\5454089E\00004000\
+BE50EC802B8AAA8371DE13805031118E
+
+IMPORTANT STARTUP ISSUE:
+MLB 2K12 freezes at the initial startup/title screen when the Windows
+system date is outside the game's expected 2012 schedule/calendar logic.
+
+PREFERRED LAUNCH METHOD:
+D:\Xenia\Tools\MLB_2K12_Launcher\Launch_MLB_2K12.bat
+
+Launcher Function:
+1. Temporarily sets the Windows date to 09-30-2012.
+2. Launches MLB 2K12 through Xenia.
+3. Waits for Xenia to close.
+4. Requests Windows time synchronization to restore the correct date/time.
+
+Manual Fallback:
+If the launcher is unavailable, manually set Windows to September 30, 2012,
+launch and play MLB 2K12, then restore Windows automatic date/time afterward.
+
+In-Game Settings Tested:
+Autosave = Off
+Living Rosters = Off
+
+These settings did NOT eliminate the startup freeze when Windows remained
+on the current 2026 date.
+
+Validated after correct date workaround:
+Boot ............. PASS
+Graphics ......... PASS
+Audio ............ PASS
+Controller ....... PASS
+Gameplay ......... PASS
+Save / Load ...... PASS
+Launcher ......... PASS
+Time Restoration . PASS
+
+
+7. FIFA SOCCER 13
+------------------------------------------------------------
+Phase:
+5
+
+Title ID:
+45410998
+
+Status:
+PASS / KNOWN GOOD
+
+Game Location:
+D:\Xenia\Xbox_360_Games\FIFA_Soccer_13\45410998
+
+Special Configuration:
+None required beyond the current universal baseline.
+
+Phase 5 Findings — August 16, 2026:
+- Physical disc intake passed.
+- Rip and transfer to Aurora completed successfully.
+- Title ID verified as 45410998.
+- Game booted normally using the existing known-good Xenia Canary baseline.
+- No graphical issues observed.
+- Gameplay was tested through approximately one quarter of a full match.
+- Saving and loading worked correctly.
+- No game-specific Xenia changes or alternate emulator build were required.
+
+Validated:
+Boot ............. PASS
+Menus ............ PASS
+Graphics ......... PASS
+Audio ............ PASS
+Controller ....... PASS
+Gameplay ......... PASS
+Save ............. PASS
+Load Save ........ PASS
+Stability ........ PASS
+
+
+8. STAR TREK: LEGACY
+------------------------------------------------------------
+Phase:
+5
+
+Title ID:
+425307D2
+
+Status:
+PENDING / KNOWN XENIA COMPATIBILITY ISSUE
+
+Game Location:
+D:\Xenia\Xbox_360_Games\Star_Trek_Legacy\425307D2
+
+Phase 5 Findings — August 16, 2026:
+- Physical disc intake passed.
+- Rip and transfer to Aurora completed successfully.
+- Title ID verified as 425307D2.
+- Game boots normally using the current known-good Xenia Canary baseline.
+- Graphics, audio, controller input, and normal Mission 1 gameplay are good.
+- Campaign crashes/hangs at the end of Mission 1 during the campaign
+  save/progression transition.
+- This behavior matches the known Xenia compatibility report for this title,
+  which identifies a post-Mission-1 save/transition problem.
+
+Velocity / GOD Extraction Investigation:
+- A separate experimental copy was created so the original rip remained untouched.
+- Velocity was tested as a possible GOD extraction route.
+- Opening the GOD descriptor as an STFS Package returned:
+  "STFS: Invalid file system header."
+- The installed Velocity build did not provide a usable GOD extraction workflow.
+- Velocity troubleshooting was discontinued rather than risking unnecessary
+  changes to the known-good environment.
+
+Current Decision:
+- Do NOT modify the universal Xenia baseline for this title.
+- Keep Star Trek: Legacy installed but classified as PENDING.
+- Monitor future Xenia / Xenia Canary development and community findings for a
+  confirmed fix or workaround for the Mission 1 campaign save transition.
+- Re-test only when meaningful new compatibility information becomes available.
+
+Validated:
+Boot ............. PASS
+Menus ............ PASS
+Graphics ......... PASS
+Audio ............ PASS
+Controller ....... PASS
+Mission 1 Gameplay PASS
+Campaign Progress  PENDING / FAILS AFTER MISSION 1
+
+Special Configuration:
+No confirmed workaround currently documented for Project X-360.
+
+
+============================================================
+PROJECT DIRECTORY MAP
+============================================================
+D:\Xenia\
+
+Alternative_Xenia_Builds\
+    Reserved for alternate Xenia versions only if a future game genuinely
+    cannot run satisfactorily on the primary build.
+
+Backups\
+    Original Xbox USB acquisitions and known-good Xenia backups.
+
+Documentation\
+    Project documentation, emulator map, and baseline configuration workbook.
+
+Tools\
+    Project utilities and special launchers.
+
+    MLB_2K12_Launcher\
+        Launch_MLB_2K12.bat
+
+Xbox_360_Emulator\
+    Primary known-good Xenia installation.
+
+Xbox_360_Games\
+    Working/playable Xbox 360 game library.
+
+
+============================================================
+EMULATOR BUILD POLICY
+============================================================
+1. Always test new games on the PRIMARY emulator first.
+
+2. Always begin with the current known-good universal baseline.
+
+3. Do not change settings preemptively.
+
+4. Change ONE variable at a time during troubleshooting.
+
+5. Record:
+   - Original value
+   - Tested value
+   - Result
+   - Final known-good value
+
+6. Prefer per-game configuration solutions when a future title needs
+   something incompatible with the universal baseline.
+
+7. Create an alternate Xenia build ONLY if a game genuinely requires one.
+
+8. Store alternate builds under:
+   D:\Xenia\Alternative_Xenia_Builds\
+
+9. Document exactly which game uses each alternate build in:
+   - This Emulator Map
+   - Xenia Baseline Configurations spreadsheet
+
+10. Never sacrifice already-working games simply to accommodate another game.
+
+11. After meaningful global configuration changes, regression-test existing
+    known-good games when appropriate.
+
+
+============================================================
+PRESERVATION POLICY
+============================================================
+Original Xbox 360 USB acquisitions are preserved under Backups.
+
+Do not experiment directly on irreplaceable archival copies.
+
+Working/playable copies belong under Xbox_360_Games.
+
+Keep known-good Xenia backups before major emulator/configuration changes.
+
+
+============================================================
+PHASE STATUS
+============================================================
+PHASE 1 — MUA BASELINE
+Status:
+COMPLETE
+
+Games:
+Marvel Ultimate Alliance Gold ........ PASS
+Marvel Ultimate Alliance 2 ........... PASS
+
+
+PHASE 2 — LIBRARY EXPANSION
+Status:
+COMPLETE
+
+Games:
+Need for Speed: ProStreet ............ PASS
+Madden NFL 25 ........................ PASS
+NBA 2K12 ............................. PASS
+MLB 2K12 ............................. PASS*
+
+
+PHASE 3 — DISASTER RECOVERY BACKUP
+Status:
+COMPLETE
+
+Result:
+Successful complete copy of the Project X-360 ecosystem to Epic Shelter.
+
+
+PHASE 4 — RECONNAISSANCE / INVENTORY
+Status:
+COMPLETE
+
+Candidates:
+FIFA Soccer 13 ....................... APPROVED
+Star Trek: Legacy .................... APPROVED
+
+
+PHASE 5 — SECOND LIBRARY EXPANSION
+Status:
+COMPLETE
+
+Results:
+FIFA Soccer 13 ....................... PASS
+Star Trek: Legacy .................... PENDING*
+
+* Star Trek: Legacy boots and plays Mission 1 correctly but cannot currently
+  progress past the post-Mission-1 campaign save/transition under Xenia.
+
+
+PHASE 6 — DOCUMENTATION & BACKUP REFRESH
+Status:
+IN PROGRESS
+
+Documentation:
+- Xenia Baseline Configurations spreadsheet updated with Phase 5 findings.
+- Project X-360 Emulator Map updated with Phase 5 findings.
+
+Remaining Phase 6 objective:
+Create / refresh the Epic Shelter backup after final documentation is placed
+inside the Project X-360 ecosystem.
+
+
+CURRENT LIBRARY SUMMARY:
+Total games in Project X-360 ........ 8
+Fully validated / PASS .............. 7
+Pending known compatibility issue ... 1
+Alternate Xenia builds required ..... 0
+
+
+============================================================
+QUICK RECOVERY NOTES
+============================================================
+If a Xenia experiment breaks compatibility:
+Restore the known-good Xenia backup.
+
+If D: fails:
+Restore the complete Xenia ecosystem from Epic Shelter after Phase 3.
+
+If a working game package becomes corrupted:
+Restore from the preserved original Xbox USB archival copy.
+
+If MLB 2K12 freezes at startup:
+Use:
+D:\Xenia\Tools\MLB_2K12_Launcher\Launch_MLB_2K12.bat
+
+If Madden NFL 25 grass/field textures are corrupted:
+Confirm:
+readback_resolve = "full"
+
+If Star Trek: Legacy crashes after Mission 1:
+This is the documented pending Xenia campaign save/progression issue.
+Do not alter the universal baseline solely for this title. Re-test when a
+credible Xenia/Canary fix or workaround becomes available.
+
+
+============================================================
+CURRENT PROJECT STATE
+============================================================
+Phase 1:
+COMPLETE
+
+Phase 2:
+COMPLETE
+
+Phase 3:
+COMPLETE
+
+Phase 4:
+COMPLETE
+
+Phase 5:
+COMPLETE
+
+Phase 6:
+IN PROGRESS — DOCUMENTATION UPDATED; BACKUP REFRESH REMAINS
+
+Primary Emulator:
+KNOWN GOOD
+
+Project Library:
+8 games total
+7 FULL PASS
+1 PENDING — Star Trek: Legacy
+
+Alternate Builds:
+NONE REQUIRED
+
+Monitoring:
+Star Trek: Legacy remains on compatibility watch for a future Xenia/Canary
+fix to the post-Mission-1 campaign save/progression issue.
+
+Project X-360 Status:
+STABLE — PHASE 6 DOCUMENTATION CURRENT
