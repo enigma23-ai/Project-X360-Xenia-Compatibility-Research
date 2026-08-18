@@ -41,6 +41,18 @@ game crashes/hangs during the campaign progression/save transition.
 -   Original game data and primary Xenia environment were left
     untouched.
 
+ ## Workarounds Investigated
+
+### portable.txt
+
+The use of `portable.txt` was investigated as a possible workaround for the Mission 1 progression/save-transition crash.
+
+Current Xenia Canary documentation indicates that Canary already operates with portable-style local content storage by default. Creating `portable.txt` therefore does not provide an additional behavior change for current Canary builds.
+
+**Result:** Ruled out as a useful workaround for the current Project X-360 test environment.
+
+The Mission 1 crash remains reproducible and unresolved.
+
 ## Request / value to developers
 
 The failure is highly reproducible at a specific campaign transition.
