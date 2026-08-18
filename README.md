@@ -4,6 +4,31 @@ Community compatibility testing, configuration research, workarounds, and reprod
 
 This project was created to document real-world Xbox 360 emulation results and contribute useful compatibility information back to the Xenia community.
 
+## Game Compatibility Index
+
+| Title ID | Game | Status | Key Finding |
+|---|---|---|---|
+| [`415607DA`](415607DA_Marvel_Ultimate_Alliance_Gold_Edition.md) | Marvel Ultimate Alliance Gold Edition | ✅ Playable | Dummy HDD/storage configuration and XMA audio settings documented |
+| [`4156082F`](4156082F_Marvel_Ultimate_Alliance_2.md) | Marvel Ultimate Alliance 2 | ✅ Playable | Boot, gameplay, graphics, controller, save/load and relaunch passed |
+| [`425307D2`](425307D2_Star_Trek_Legacy.md) | Star Trek: Legacy | ⚠️ Pending | Mission 1 plays correctly; campaign progression/save transition crashes afterward |
+| [`45410822`](45410822_Need_for_Speed_ProStreet.md) | Need for Speed: ProStreet | ✅ Playable | Boot, gameplay, graphics, controller and save/load passed |
+| [`45410998`](45410998_FIFA_Soccer_13.md) | FIFA Soccer 13 | ✅ Playable | Clean gameplay, graphics and save/load under current baseline |
+| [`454109C1`](454109C1_Madden_NFL_25.md) | Madden NFL 25 | ✅ Playable | `readback_resolve = "full"` corrected field/grass rendering |
+| [`54540894`](54540894_NBA_2K12.md) | NBA 2K12 | ✅ Playable | Passed under current Project X-360 baseline |
+| [`5454089E`](5454089E_MLB_2K12.md) | MLB 2K12 | ⚠️ Playable with workaround | Current-date startup freeze; temporary `2012-09-30` Windows date workaround |
+
+### Priority Research
+
+Two titles currently have dedicated compatibility investigations:
+
+- **Star Trek: Legacy — `425307D2`**  
+  Reproducible campaign progression/save-transition failure after Mission 1.  
+  See [`PRIORITY_425307D2_Star_Trek_Legacy_Mission1_Crash.md`](PRIORITY_425307D2_Star_Trek_Legacy_Mission1_Crash.md)
+
+- **MLB 2K12 — `5454089E`**  
+  Reproducible system-date dependency affecting startup.  
+  See [`PRIORITY_5454089E_MLB_2K12_Date_Dependency.md`](PRIORITY_5454089E_MLB_2K12_Date_Dependency.md)
+
 ## Purpose
 
 Project X-360 focuses on:
