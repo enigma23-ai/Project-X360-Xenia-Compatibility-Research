@@ -53,6 +53,20 @@ Current Xenia Canary documentation indicates that Canary already operates with p
 
 The Mission 1 crash remains reproducible and unresolved.
 
+### NVIDIA Control Panel / GPU Performance Settings
+
+A general Xenia crash workaround involving NVIDIA Control Panel settings was reviewed.
+
+The suggested method consists primarily of updating GPU drivers, selecting performance-oriented NVIDIA settings, configuring VSync/frame-rate options, and creating an application profile for Xenia.
+
+This workaround appears directed at general emulator performance or GPU-related instability rather than game-specific progression failures.
+
+Project X-360 testing shows that Star Trek: Legacy successfully boots and completes Mission 1 gameplay. The reproducible failure occurs specifically during the post-mission progression/save transition.
+
+**Result:** Not considered a targeted workaround for the currently observed Mission 1 progression crash. No NVIDIA Control Panel changes were made.
+
+**Status:** Mission 1 progression crash remains unresolved.
+
 ## Request / value to developers
 
 The failure is highly reproducible at a specific campaign transition.
